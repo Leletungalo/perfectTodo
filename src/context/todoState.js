@@ -1,39 +1,38 @@
 import React, { useReducer } from "react";
 import TodoContext from "./todoContext"
 import TodoReduncer from "./todoReduncer"
-import { CLEAR_TODOS, ADD_TODO, REMOVE_TODO, SET_COMPLETE } from "./types"
+import { GET_TODOS,CLEAR_TODOS, ADD_TODO, REMOVE_TODO, SET_COMPLETE,SEARCH_TODOS } from "./types"
 const TodoState = props => {
     const incialState = {
-        data: [
-            {
-                id: 1,
-                todo: "Eat dinner with wife",
-                completed: false
-            },
-            {
-                id: 2,
-                todo: "talk to estee",
-                completed: false
-            },
-            {
-                id: 3,
-                todo: "phokozi nasiphi axolie",
-                completed: true
-            },
-            {
-                id: 4,
-                todo: "Eat dinner with wife",
-                completed: false
-            },
-            {
-                id: 5,
-                todo: "fight corona virus",
-                completed: false
-            }
-        ]
+        data: []
     }
 
     const [state, dispatch] = useReducer(TodoReduncer, incialState);
+
+    //get todos
+    const getData = () =>{
+        let tojson;
+        fetch("localhost:4000/todoapi")
+        .then((res) => res.json() )
+        .then(data => {
+            console.log(data)
+            tojson = data})
+        .catch(err => console.log(err))
+        
+
+        dispatch({
+            type: GET_TODOS,
+            payload: tojson
+        })
+    }
+
+    getData();
+
+    //Search todos
+    const searchTodo = inputText => dispatch({
+        type: SEARCH_TODOS,
+        payload: inputText
+    })
 
     //Set Complited Task
     const setComplete = (id) => dispatch({
@@ -61,6 +60,8 @@ const TodoState = props => {
     return <TodoContext.Provider
         value={{
             data: state.data,
+            getData,
+            searchTodo,
             setComplete,
             removeTodo,
             clearAll,

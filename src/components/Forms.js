@@ -9,11 +9,12 @@ const Forms = () => {
     const search = (event) => {
         const {value} = event.target;
         setSearchValue(value);
+        todoContext.searchTodo(value);
     }
 
     const searchStayle = {
         width: "100%",
-        fontSize: "1rem",
+        fontSize: ".8rem",
         padding: ".3em 1em",
         color: "black",
         backgroundColor: "lightgrey"
@@ -27,7 +28,7 @@ const Forms = () => {
             onChange={search} />
             <div style={{width:"100%"}}>
                 <input style={{width:"90%",
-                fontSize: "1rem",
+                fontSize: ".8rem",
                 padding: ".3em 1em",
                 color: "black",
                 backgroundColor: "lightgrey"}}
@@ -35,11 +36,11 @@ const Forms = () => {
                 onChange={(event) => setaddTodo(event.target.value)}
                 value={addTodo}
                 type="text" />
-                <button style={{fontSize:"0.8rem",padding:".2em .8em"}} 
+                <button style={{width:"10%",fontSize:"0.8rem",padding:".2em .8em"}} 
                 onClick={() => {
                     todoContext.addingTodo(addTodo);
                     setaddTodo("");
-                }}>Add a Todo</button>
+                }}>Add </button>
             </div>
             <button 
             style={{width:"100%"}}

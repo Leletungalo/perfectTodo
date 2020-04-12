@@ -1,8 +1,9 @@
-import {CLEAR_TODOS,ADD_TODO,REMOVE_TODO, SET_COMPLETE} from "./types";
+import {CLEAR_TODOS,ADD_TODO,REMOVE_TODO, SET_COMPLETE,SEARCH_TODOS, GET_TODOS} from "./types";
 
 export default (state,action) => {
-    
     switch(action.type){
+        case GET_TODOS:
+            return {data: action.payload}
         case SET_COMPLETE:
              const tempArr = [];
                 for(let i = 0; i < state.data.length;i++){
@@ -28,6 +29,8 @@ export default (state,action) => {
             tempArr2.push(tempOb2);
             console.log(tempArr2);
             return {data:tempArr2}
+        case SEARCH_TODOS:
+            return {data: state.data.filter((element) => element.todo.includes(action.payload))}
         case REMOVE_TODO:
             return {data: state.data.filter((element) => element.id !== action.payload)}
         case CLEAR_TODOS:

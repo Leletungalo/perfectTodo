@@ -4,6 +4,7 @@ import TodoItem from "./TodoItem"
 
 const Todos = () => {
     const todoContext = useContext(TodoContext);
+
     const result = todoContext.data.map((ele) => {
         return <TodoItem key={ele.id} todo={ele} />
     })
